@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="./css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/angular-ui-notification.min.css">
+    <link rel="stylesheet" href="./css/select.min.css">
+
+    <title>DPD: Расчёт стоимости</title>
+</head>
+
+<body ng-app="dpdApp">
+<div class="container">
+
+    <div class="page-header">
+        <h1>Расчёт стоимости</h1>
+    </div>
+
+    <div ng-controller="DpdCalcController">
+        <form class="form-horizontal" role="form"
+              ng-submit="update(form)">
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Введите вес..."
+                       ng-model="form.weight"/>
+
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" title="Update"
+                        ng-disabled="!form.weight">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+            </span>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="page-header">
+        <h1>Geo</h1>
+    </div>
+
+    <div ng-controller="DpdGeoController as geo">
+        <form class="form-horizontal" role="form">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Город</label>
+                <div class="col-sm-6">
+
+                    <ui-select ng-model="geo.city.selected" theme="bootstrap" append-to-body="true">
+                        <ui-select-match placeholder="Выбрать город...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in geo.cities | filter: $select.search">
+                                <!-- refresh="funcAsync($select.search)" refresh-delay="5000" -->
+                            <div ng-bind-html="item.cityName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/angular.min.js"></script>
+<script type="text/javascript" src="./js/angular-resource.min.js"></script>
+<script type="text/javascript" src="./js/angular-ui-notification.min.js"></script>
+<script type="text/javascript" src="./js/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="./js/select.min.js"></script>
+<script type="text/javascript" src="./app/app.js"></script>
+<script type="text/javascript" src="./app/calc/service.js"></script>
+<script type="text/javascript" src="./app/calc/controller.js"></script>
+<script type="text/javascript" src="./app/geo/controller.js"></script>
+<script type="text/javascript" src="./app/geo/service.js"></script>
+</body>
+</html>

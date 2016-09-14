@@ -1,0 +1,25 @@
+# Operating System Files
+*.DS_Store
+Thumbs.db
+
+# eclipse
+.settings/*
+.project
+.classpath
+
+# idea
+.idea/
+*.iml
+
+# maven
+.mvn/*
+mvnw.cmd
+mvnw
+
+# Build Files #
+bin/*
+target/*
+build/*
+
+# spring
+.springBeans
