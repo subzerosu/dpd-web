@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cane.brothers.wsdl</groupId>
+	<artifactId>dpd-geo</artifactId>
+	<version>1.0</version>
+
+	<name>DPD Geo wsdl</name>
+	<description>DPD Geo import project</description>
+
+	<organization>
+		<name>Cane Brothers</name>
+		<url>https://github.com/subzerosu</url>
+	</organization>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<build>
+		<finalName>dpd-geo-wsdl</finalName>
+	</build>
+
+</project>
