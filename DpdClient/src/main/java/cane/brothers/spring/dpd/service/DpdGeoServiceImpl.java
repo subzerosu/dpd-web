@@ -1,12 +1,14 @@
 package cane.brothers.spring.dpd.service;
 
 
+import cane.brothers.spring.dpd.exception.DpdConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.dpd.ws.geography._2012_04_17.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
 @Service
 public class DpdGeoServiceImpl implements DpdGeoService {
 
-    Logger log = LoggerFactory.getLogger(DpdGeoServiceImpl.class);
+    private Logger log = LoggerFactory.getLogger(DpdGeoServiceImpl.class);
 
     @Value("${dpd.auth.clientkey}")
     private String clientKey;
@@ -23,20 +25,41 @@ public class DpdGeoServiceImpl implements DpdGeoService {
     @Value("${dpd.auth.clientnumber}")
     private Long clientNumber;
 
-    public List<City> getCities() {
-        List<City> cities = null;
-        DPDGeography geo = getGeo();
+    private static List<City> cities = null;
 
-        try {
-            log.debug("Запросили города");
-            cities = geo.getCitiesCashPay(getAuth());
-            log.debug("Получили список из {} городов", cities.size());
+    public List<City> getCities(String query) throws DpdConnectionException {
+        if (cities == null) {
+            DPDGeography geo = getGeo();
 
-        } catch (WSFault_Exception e) {
-            log.error(e.getMessage());
+            try {
+                log.debug("Запросили города");
+                cities = geo.getCitiesCashPay(getAuth());
+                log.debug("Получили список из {} городов", cities.size());
+
+            } catch (WSFault_Exception e) {
+                log.error(e.getMessage());
+                throw new DpdConnectionException(e.getMessage());
+            }
         }
 
-        return cities;
+        return filterCities(cities, query);
+    }
+
+    private List<City> filterCities(List<City> cities, String query) {
+        if(query == null || query.isEmpty()) {
+            return cities;
+        }
+
+        List<City> filteredCities = new ArrayList<>();
+
+        for (City city: cities) {
+           if(city.getCityName().toLowerCase().contains(query.toLowerCase())
+                   || city.getRegionName().toLowerCase().contains(query.toLowerCase())) {
+               filteredCities.add(city);
+           }
+        }
+
+        return filteredCities;
     }
 
     private DPDGeography getGeo() {

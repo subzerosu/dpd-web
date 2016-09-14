@@ -1,5 +1,6 @@
 package cane.brothers.spring.dpd.web;
 
+import cane.brothers.spring.dpd.exception.DpdConnectionException;
 import cane.brothers.spring.dpd.service.DpdGeoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,16 @@ public class DpdGeoController {
     @Autowired
     private DpdGeoService dpdService;
 
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<City> getAllCities() throws DpdConnectionException {
+//        log.debug("get all cities");
+//        return dpdService.getCities(null);
+//    }
+
     @RequestMapping(method = RequestMethod.GET)
-    public List<City> getAllCities() {
-        log.debug("get all cities");
-        return dpdService.getCities();
+    public List<City> getCities(@RequestParam String query) throws DpdConnectionException {
+        log.debug("get cities by query");
+        return dpdService.getCities(query);
     }
 
 //    @RequestMapping(value="/{cityName}", method = RequestMethod.GET)

@@ -48,8 +48,8 @@
 
                     <ui-select ng-model="geo.city.selected" theme="bootstrap" append-to-body="true">
                         <ui-select-match placeholder="Выбрать город...">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="item in geo.cities | filter: $select.search">
-                                <!-- refresh="funcAsync($select.search)" refresh-delay="5000" -->
+                        <ui-select-choices repeat="item in geo.cities track by $index | filter: $select.search"
+                                refresh="funcAsync($select.search)" refresh-delay="2000">
                             <div ng-bind-html="item.cityName | highlight: $select.search"></div>
                         </ui-select-choices>
                     </ui-select>

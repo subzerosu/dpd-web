@@ -1,7 +1,7 @@
 (function(angular) {
 	// Dpd resource
 	var DpdGeoFactory = function($resource) {
-		return $resource('/dpd/rest/geo', {}, {});
+		return $resource('/dpd/rest/geo', {query:'@query'}, {});
 	};
 
 	DpdGeoFactory.$inject = [ '$resource' ];
