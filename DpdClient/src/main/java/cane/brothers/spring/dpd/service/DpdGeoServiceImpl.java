@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class DpdGeoServiceImpl implements DpdGeoService {
 
-    private Logger log = LoggerFactory.getLogger(DpdGeoServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(DpdGeoServiceImpl.class);
 
     @Value("${dpd.auth.clientkey}")
     private String clientKey;

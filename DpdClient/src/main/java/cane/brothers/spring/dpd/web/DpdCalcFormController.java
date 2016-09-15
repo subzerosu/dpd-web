@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest/calc")
 public class DpdCalcFormController {
 
-    Logger log = LoggerFactory.getLogger(DpdCalcFormController.class);
+	private static final Logger log = LoggerFactory.getLogger(DpdCalcFormController.class);
 
     @Autowired
     private DpdCalcService dpdService;

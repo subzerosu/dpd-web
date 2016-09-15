@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class DpdCalcServiceImpl implements DpdCalcService {
 
-    Logger log = LoggerFactory.getLogger(DpdCalcServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(DpdCalcServiceImpl.class);
 
     @Value("${dpd.auth.clientkey}")
     private String clientKey;

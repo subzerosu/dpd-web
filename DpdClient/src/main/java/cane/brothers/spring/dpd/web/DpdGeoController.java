@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/rest/geo")
 public class DpdGeoController {
 
-    Logger log = LoggerFactory.getLogger(DpdCalcFormController.class);
+	private static final Logger log = LoggerFactory.getLogger(DpdCalcFormController.class);
 
     @Autowired
     private DpdGeoService dpdService;
