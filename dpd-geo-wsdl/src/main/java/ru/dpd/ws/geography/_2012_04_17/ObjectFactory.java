@@ -138,19 +138,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link City }
-     * 
-     */
-    public City createCity() {
-        return new City();
-    }
-
-    /**
      * Create an instance of {@link TerminalExt }
      * 
      */
     public TerminalExt createTerminalExt() {
         return new TerminalExt();
+    }
+
+    /**
+     * Create an instance of {@link City }
+     * 
+     */
+    public City createCity() {
+        return new City();
     }
 
     /**

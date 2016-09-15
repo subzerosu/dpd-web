@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "DPDGeographyService", targetNamespace = "http://dpd.ru/ws/geography/2012-04-17", wsdlLocation = "http://wstest.dpd.ru/services/geography?wsdl")
+@WebServiceClient(name = "DPDGeographyService", targetNamespace = "http://dpd.ru/ws/geography/2012-04-17", wsdlLocation = "http://ws.dpd.ru/services/geography?wsdl")
 public class DPDGeographyService
     extends Service
 {
@@ -30,7 +30,7 @@ public class DPDGeographyService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://wstest.dpd.ru/services/geography?wsdl");
+            url = new URL("http://ws.dpd.ru/services/geography?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -75,7 +75,7 @@ public class DPDGeographyService
     /**
      * 
      * @param features
-     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     *     A list of {@link WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
      *     returns DPDGeography
      */

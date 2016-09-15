@@ -41,8 +41,8 @@ public interface DPDGeography {
         @FaultAction(className = WSFault_Exception.class, value = "http://dpd.ru/ws/geography/2012-04-17/DPDGeography/getTerminalsSelfDelivery/Fault/WSFault")
     })
     public List<TerminalDPD> getTerminalsSelfDelivery(
-        @WebParam(name = "auth", targetNamespace = "")
-        Auth auth)
+            @WebParam(name = "auth", targetNamespace = "")
+                    Auth auth)
         throws WSFault_Exception
     ;
 
@@ -61,8 +61,8 @@ public interface DPDGeography {
         @FaultAction(className = WSFault_Exception.class, value = "http://dpd.ru/ws/geography/2012-04-17/DPDGeography/getTerminalsSelfDelivery2/Fault/WSFault")
     })
     public List<DpdTerminalExt> getTerminalsSelfDelivery2(
-        @WebParam(name = "auth", targetNamespace = "")
-        Auth auth)
+            @WebParam(name = "auth", targetNamespace = "")
+                    Auth auth)
         throws WSFault_Exception
     ;
 
@@ -81,8 +81,8 @@ public interface DPDGeography {
         @FaultAction(className = WSFault_Exception.class, value = "http://dpd.ru/ws/geography/2012-04-17/DPDGeography/getCitiesCashPay/Fault/WSFault")
     })
     public List<City> getCitiesCashPay(
-        @WebParam(name = "auth", targetNamespace = "")
-        Auth auth)
+            @WebParam(name = "auth", targetNamespace = "")
+                    Auth auth)
         throws WSFault_Exception
     ;
 
@@ -101,8 +101,8 @@ public interface DPDGeography {
         @FaultAction(className = WSFault_Exception.class, value = "http://dpd.ru/ws/geography/2012-04-17/DPDGeography/getParcelShops/Fault/WSFault")
     })
     public DpdParcelShops getParcelShops(
-        @WebParam(name = "request", targetNamespace = "")
-        DpdParcelShopRequest request)
+            @WebParam(name = "request", targetNamespace = "")
+                    DpdParcelShopRequest request)
         throws WSFault_Exception
     ;
 
