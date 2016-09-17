@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset='utf-8'>
-    <link rel="stylesheet" href="./css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./css/angular-ui-notification.min.css">
-    <link rel="stylesheet" href="./css/select.min.css">
+    <link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./assets/angular-ui-notification/dist/angular-ui-notification.min.css">
+    <!--<link rel="stylesheet" href="./css/select.min.css">-->
+    <link rel="stylesheet" type="text/css" href="./assets/chosen/chosen.css" />
 
     <title>DPD: Расчёт стоимости</title>
 </head>
@@ -46,13 +47,21 @@
                 <label class="col-sm-3 control-label">Город</label>
                 <div class="col-sm-6">
 
-                    <ui-select ng-model="geo.city.selected" theme="bootstrap" append-to-body="true">
-                        <ui-select-match placeholder="Выбрать город...">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="item in geo.cities track by $index | filter: $select.search"
-                                refresh="funcAsync($select.search)" refresh-delay="2000">
-                            <div ng-bind-html="item.cityName | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
+                    <!--<ui-select ng-model="geo.city.selected" theme="bootstrap">-->
+                        <!--<ui-select-match placeholder="Выбрать город...">{{$select.selected.name}}</ui-select-match>-->
+                        <!--&lt;!&ndash; | filter: $select.search &ndash;&gt;-->
+                        <!--<ui-select-choices repeat="item in geo.cities track by $index | limitTo:$select.limit"-->
+                                           <!--limit="100" refresh="funcAsync($select.search)" refresh-delay="500">-->
+                            <!--<div ng-bind-html="item.cityName | highlight: $select.search"></div>-->
+                        <!--</ui-select-choices>-->
+                    <!--</ui-select>-->
+                    <select chosen
+                            data-placeholder="Выбрать город..."
+                            no-results-text="'Подождите..'"
+                            ng-model="geo.city.selected"
+                            ng-options="item.id as item.cityName for item in geo.cities track by $index">
+                        <option value=""></option>
+                    </select>
 
                 </div>
             </div>
@@ -63,13 +72,16 @@
 
 </div>
 
-<script type="text/javascript" src="./js/jquery.js"></script>
-<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/angular.min.js"></script>
-<script type="text/javascript" src="./js/angular-resource.min.js"></script>
-<script type="text/javascript" src="./js/angular-ui-notification.min.js"></script>
-<script type="text/javascript" src="./js/angular-sanitize.min.js"></script>
-<script type="text/javascript" src="./js/select.min.js"></script>
+<script type="text/javascript" src="./assets/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./assets/angular/angular.min.js"></script>
+<script type="text/javascript" src="./assets/angular-resource/angular-resource.min.js"></script>
+<script type="text/javascript" src="./assets/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+<!--<script type="text/javascript" src="./js/angular-sanitize.min.js"></script>-->
+<!--<script type="text/javascript" src="./js/select.min.js"></script>-->
+<script type="text/javascript" src="./assets/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="./assets/angular-chosen-localytics/dist/angular-chosen.min.js"></script>
+
 <script type="text/javascript" src="./app/app.js"></script>
 <script type="text/javascript" src="./app/calc/service.js"></script>
 <script type="text/javascript" src="./app/calc/controller.js"></script>

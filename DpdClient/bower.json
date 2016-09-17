@@ -1,0 +1,38 @@
+{
+  "name": "bower-dpd",
+  "authors": [
+    "cane <webcane@ya.ru>"
+  ],
+  "description": "bower installer for dandelion",
+  "keywords": [
+    "bootstrap, jquery"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "CHANGELOG.md",
+    "grunt",
+    "js",
+    "less",
+    "nuget",
+    "package.*",
+    "sizzle",
+    "libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "angular-resource": "~1.5.8",
+    "angular-ui-notification": "~0.2.0",
+    "angular-chosen-localytics": "1.5.0"
+  },
+  "install" : {
+     "path" : {
+       "css": "css",
+       "js": "js"
+     }
+   }
+}

@@ -17,20 +17,22 @@
 			//     indexMax: "650999"
 			// }
 		];
+
+		vm.allCities = DpdGeo.query({query:""});
+
 		vm.city = {};
 		vm.city.selected = {};
 
-		//vm.city.selectedValue = vm.cities[3];
-
-		// DpdGeo.query(function(response) {
-		// 	vm.cities = response;
-		// });
-
 		$scope.funcAsync = function (query) {
-			DpdGeo.query({query:query}, function(response) {
-				vm.cities = response;
-			});
+            vm.cities = [];
+			vm.cities = vm.allCities.filter(function(c) {
+                return ( contains(c.cityName, query) || contains(c.regionName, query));
+            });
 		};
+
+        contains = function(a, b) {
+            return a.toLowerCase().indexOf(b.toLowerCase()) !== -1;
+        };
 	};
 
 

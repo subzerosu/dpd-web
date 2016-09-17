@@ -5,16 +5,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Component;
 
 import cane.brothers.spring.dpd.exception.DpdConnectionException;
 import cane.brothers.spring.dpd.service.DpdGeoService;
 
-//ApplicationStartedEvent
+// ApplicationStartedEvent
 // ContextStartedEvent
+// ContextRefreshedEvent
 @Component
-public class DpdStartupListener implements ApplicationListener<ApplicationStartedEvent> {
+public class DpdStartupListener implements ApplicationListener<ContextRefreshedEvent> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DpdStartupListener.class);
 
@@ -22,7 +24,7 @@ public class DpdStartupListener implements ApplicationListener<ApplicationStarte
 	private DpdGeoService cityService;
 
 	@Override
-	public void onApplicationEvent(ApplicationStartedEvent arg0) {
+	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		preloadCities();
 	}
 
