@@ -1,21 +1,48 @@
 (function(angular) {
-	// Dpd controller
-	var DpdCalcController = function($scope, Notification, DpdCalc) {
-		$scope.form = {};
+	'use strict';
+
+	angular.module('dpdApp')
+		.controller('CalcCtrl', DpdCalcController);
+
+	function DpdCalcController($log, $mdToast, DpdCalc) {
+		var self = this;
+
+        self.form = {};
+
+        self.facilityList = [];
 
 		DpdCalc.get(function(response) {
-			$scope.form = response;
+			self.form = response;
+			$log.info('Form is loaded');
 		});
 
-		$scope.update = function(form) {
-			form.$update();
-            Notification.primary('Dpd calc form was updated successfully!')
+		self.update = function(form) {
+            // TODO
+			form.$update({}, function success(resp) {
+                showNotification("Запрос отравлен!");
+
+                self.facilityList = resp;
+            });
 		};
 
-	};
+		self.clear = function() {
+            self.form = {
+                cityPickupType: false,
+                cityDeliveryType: false,
+                quantity: 1
+            };
+		};
 
-	DpdCalcController.$inject = [ '$scope', 'Notification', 'DpdCalc'];
-	angular.module("dpdApp.controllers").controller("DpdCalcController",
-        DpdCalcController);
+        self.clear();
+
+        function showNotification (message) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .hideDelay(3000)
+            );
+            $log.info('Form updated');
+        }
+	};
 
 }(angular));

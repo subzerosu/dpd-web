@@ -1,43 +1,87 @@
-(function(angular) {
-	// Dpd controller
-	var DpdGeoController = function($scope, DpdGeo) {
-		var vm = this;
+(function (angular) {
+	'use strict';
 
-		vm.cities = [
-			// {
-			//     cityId: 48951627,
-			//     countryCode: "RU",
-			//     countryName: "Россия",
-			//     regionCode: 42,
-			//     regionName: "Кемеровская",
-			//     cityCode: "42000009000",
-			//     cityName: "Кемерово",
-			//     abbreviation: "г",
-			//     indexMin: "650000",
-			//     indexMax: "650999"
-			// }
-		];
+	angular.module('dpdApp')
+		.controller('CityCtrl', CityController);
 
-		vm.allCities = DpdGeo.query({query:""});
+	// var DpdGeoController = function($scope, DpdGeo) {
+	function CityController ($timeout, $q, $log, $scope, DpdGeo) {
+		var self = this;
 
-		vm.city = {};
-		vm.city.selected = {};
+		self.simulateQuery = false;
+		self.isDisabled    = false;
+		self.destination   = "pickup";
 
-		$scope.funcAsync = function (query) {
-            vm.cities = [];
-			vm.cities = vm.allCities.filter(function(c) {
-                return ( contains(c.cityName, query) || contains(c.regionName, query));
-            });
-		};
+		// list of all cities
+		self.cities = [];
+		loadAll();
+		self.querySearch   = querySearch;
+		self.selectedItemChange = selectedItemChange;
+		self.searchTextChange   = searchTextChange;
 
-        contains = function(a, b) {
-            return a.toLowerCase().indexOf(b.toLowerCase()) !== -1;
-        };
+		// ******************************
+		// Internal methods
+		// ******************************
+
+		/**
+		 * Search for cities... use $timeout to simulate
+		 * remote dataservice call.
+		 */
+		function querySearch (query) {
+			var results = query ? self.cities.filter( createFilterFor(query) ) : self.cities,
+				deferred;
+			if (self.simulateQuery) {
+				deferred = $q.defer();
+				$timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+				return deferred.promise;
+			} else {
+				return results;
+			}
+		}
+
+		function searchTextChange(text) {
+			$log.info('Text changed to ' + text);
+		}
+
+		function selectedItemChange(item) {
+			$log.info('Item changed to ' + JSON.stringify(item));
+			if(item) {
+				if (self.destination == 'pickup') {
+					$scope.$parent.calcCtrl.form.cityPickupId = item.cityId;
+				} else {
+					$scope.$parent.calcCtrl.form.cityDeliveryId = item.cityId;
+				}
+			}
+		}
+
+		/**
+		 * Build `cities` list of key/value pairs
+		 */
+		function loadAll() {
+			// $http.get('app/cities.json').then(function(res){
+			// 	self.cities = res.data;
+			// });
+			self.cities = DpdGeo.query({query:""},
+				function success(res) {
+					// todo
+			},  function err(res) {
+
+			});
+		}
+
+		/**
+		 * Create filter function for a query string
+		 */
+		function createFilterFor(query) {
+			var lowercaseQuery = angular.lowercase(query);
+
+			return function filterFn(city) {
+				// 1. starts with query
+				//return (city.cityName.toLowerCase().indexOf(lowercaseQuery) === 0);
+				// 2. contains query
+				return (city.cityName.toLowerCase().indexOf(lowercaseQuery) !== -1);
+			};
+		}
 	};
 
-
-	DpdGeoController.$inject = ['$scope', 'DpdGeo'];
-	angular.module("dpdApp.controllers").controller("DpdGeoController",
-        DpdGeoController);
-
-}(angular));
+})(angular);

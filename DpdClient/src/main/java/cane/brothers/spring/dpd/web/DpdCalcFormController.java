@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by cane on 11.09.16.
  */
@@ -28,10 +30,8 @@ public class DpdCalcFormController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public DpdCalcVo workCalcForm(@RequestBody DpdCalcVo form) {
+    public List<DpdFacilityVo> workCalcForm(@RequestBody DpdCalcVo form) {
         log.info("calc form: " + form);
-
-        dpdService.getData();
-        return form;
+        return dpdService.calculateFacilities(form);
     }
 }

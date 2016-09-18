@@ -3,9 +3,10 @@
   "authors": [
     "cane <webcane@ya.ru>"
   ],
-  "description": "bower installer for dandelion",
+  "description": "bower installer for dpd client",
   "keywords": [
-    "bootstrap, jquery"
+    "angular material",
+    "angular material table"
   ],
   "private": true,
   "ignore": [
@@ -24,10 +25,9 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.6",
+    "angular-material": "~1.1.1",
     "angular-resource": "~1.5.8",
-    "angular-ui-notification": "~0.2.0",
-    "angular-chosen-localytics": "1.5.0"
+    "md-data-table": "~1.6.9"
   },
   "install" : {
      "path" : {

@@ -1,13 +1,20 @@
 (function(angular) {
+	'use strict';
+	
 	// Dpd resource
 	var DpdCalcFactory = function($resource) {
 		return $resource('/dpd/rest/calc', {}, {
 			update : {
-				method : 'PUT'
+				method : 'PUT',
+                // TODO
+                isArray: true,
+                transformResponse: function(data, headers){
+                    // transform to array of objects
+                    return data;
+                }
 			}
 		});
 	};
-
-	DpdCalcFactory.$inject = [ '$resource' ];
-	angular.module("dpdApp.services").factory("DpdCalc", DpdCalcFactory);
+    
+	angular.module("dpdApp").factory("DpdCalc", DpdCalcFactory);
 }(angular));
