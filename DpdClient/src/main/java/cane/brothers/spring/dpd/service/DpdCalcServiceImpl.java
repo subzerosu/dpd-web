@@ -28,11 +28,15 @@ public class DpdCalcServiceImpl implements DpdCalcService {
     @Value("${dpd.auth.clientnumber}")
     private Long clientNumber;
 
-    public List<DpdFacilityVo> calculateFacilities(DpdCalcVo form) {
+    private List<DpdFacilityVo> facilityList = new ArrayList<>();
+
+    @Override
+    public boolean calculateFacilities(DpdCalcVo form) {
         if(form == null) {
             new IllegalArgumentException("form object cann't be null");
         }
-        List<DpdFacilityVo> facilityList = new ArrayList<>();
+//        List<DpdFacilityVo> facilityList = new ArrayList<>();
+        facilityList.clear();
 
         DPDCalculatorService service = new DPDCalculatorService();
         DPDCalculator calc = service.getDPDCalculatorPort();
@@ -66,7 +70,12 @@ public class DpdCalcServiceImpl implements DpdCalcService {
             log.error(e.getMessage());
         }
 
+//
+        return (facilityList.size() > 0 ? true : false);
+    }
 
+    @Override
+    public List<DpdFacilityVo> getFacilities() {
         return facilityList;
     }
 
@@ -135,4 +144,6 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 
         request.getParcel().add(p1);
     }
+
+
 }

@@ -3,15 +3,9 @@
 	
 	// Dpd resource
 	var DpdCalcFactory = function($resource) {
-		return $resource('/dpd/rest/calc', {}, {
+		return $resource('/dpd/rest/calc/:id', {id: '@id'}, {
 			update : {
-				method : 'PUT',
-                // TODO
-                isArray: true,
-                transformResponse: function(data, headers){
-                    // transform to array of objects
-                    return data;
-                }
+				method : 'PUT'
 			}
 		});
 	};

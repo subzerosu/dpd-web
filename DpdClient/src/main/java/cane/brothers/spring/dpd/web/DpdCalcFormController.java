@@ -4,10 +4,7 @@ import cane.brothers.spring.dpd.service.DpdCalcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,15 +20,21 @@ public class DpdCalcFormController {
     @Autowired
     private DpdCalcService dpdService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public DpdCalcVo getCalcForm() {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public DpdCalcVo getCalcForm(@PathVariable String id) {
         log.info("get new calc form");
         return new DpdCalcVo();
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public List<DpdFacilityVo> workCalcForm(@RequestBody DpdCalcVo form) {
+    public Boolean workCalcForm(@RequestBody DpdCalcVo form) {
         log.info("calc form: " + form);
         return dpdService.calculateFacilities(form);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<DpdFacilityVo> getFacilities() {
+        log.info("get list of calculated facilities");
+        return dpdService.getFacilities();
     }
 }

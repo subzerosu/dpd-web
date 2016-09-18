@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface DpdCalcService {
 
-    List<DpdFacilityVo> calculateFacilities(DpdCalcVo form);
+    boolean calculateFacilities(DpdCalcVo form);
 
+    List<DpdFacilityVo> getFacilities();
 }

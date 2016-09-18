@@ -11,17 +11,25 @@
 
         self.facilityList = [];
 
-		DpdCalc.get(function(response) {
+        self.calculations = false;
+
+		DpdCalc.get({id: 0}, function(response) {
 			self.form = response;
 			$log.info('Form is loaded');
 		});
 
 		self.update = function(form) {
-            // TODO
-			form.$update({}, function success(resp) {
+            self.calculations = true;
+            form.$update({}, function success(resp) {
                 showNotification("Запрос отравлен!");
 
-                self.facilityList = resp;
+                self.facilityList = DpdCalc.query({}, function success(data){
+                    self.calculations = false;
+                }, function error(data) {
+                    self.calculations = false;
+                });
+            }, function error(data) {
+                self.calculations = false;
             });
 		};
 
