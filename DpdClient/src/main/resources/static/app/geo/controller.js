@@ -15,9 +15,11 @@
 		// list of all cities
 		self.cities = [];
 		loadAll();
-		self.querySearch   = querySearch;
+		
+		self.querySearch        = querySearch;
 		self.selectedItemChange = selectedItemChange;
 		self.searchTextChange   = searchTextChange;
+		self.clear              = clear;
 
 		// ******************************
 		// Internal methods
@@ -82,6 +84,16 @@
 				return (city.cityName.toLowerCase().indexOf(lowercaseQuery) !== -1);
 			};
 		}
+		
+		function clear() {
+			self.searchText = undefined;
+			self.searchItem = undefined;
+		};
+		
+        // подписываемся на событие
+        $scope.$on('clearForm', function(event, args) {
+        	self.clear();
+        });
 	};
 
 })(angular);
