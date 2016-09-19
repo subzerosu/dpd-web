@@ -9,6 +9,7 @@
 
         self.form = {};
         self.facilityList = [];
+        self.showFacilities = false;
 
 		DpdCalc.get({id: 0}, function(response) {
 			self.form = response;
@@ -37,6 +38,7 @@
                 quantity: 1
             };
             
+            self.showFacilities = false;
             // опускаем вниз
     		$scope.$broadcast('clearForm', {});
 		};
