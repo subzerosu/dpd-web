@@ -11,11 +11,6 @@
         self.facilityList = [];
         self.showFacilities = false;
 
-		DpdCalc.get({id: 0}, function(response) {
-			self.form = response;
-			$log.info('Form is loaded');
-		});
-
 		self.update = function(form) {
 			showNotification("Запрос отравляется!");
 			
@@ -30,14 +25,20 @@
             	self.closeWhile();
             });
 		};
+		
+		self.loadForm = function() {
+			DpdCalc.get({id: 0}, function(response) {
+				self.form = response;
+				$log.info('Empty form is loaded');
+			});
+		};
+		
+        //self.loadForm();
 
 		self.clearForm = function() {
-            self.form = {
-                cityPickupType: false,
-                cityDeliveryType: false,
-                quantity: 1
-            };
-            
+			// загружаем пустую форму
+			self.loadForm();
+            // прячем таблицу
             self.showFacilities = false;
             // опускаем вниз
     		$scope.$broadcast('clearForm', {});
