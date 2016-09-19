@@ -7,12 +7,12 @@
 	function DpdCalcController($scope, $log, $mdToast, $mdDialog, DpdCalc) {
 		var self = this;
 
-        self.form = {};
-        self.facilityList = [];
-        self.showFacilities = false;
+        self.form = {};       
 
 		self.update = function(form) {
-			showNotification("Запрос отравляется!");
+			//showNotification("Запрос отравляется!");
+			self.facilityList = [];
+			self.showFacilities = false;
 			
 			self.showWhile();
             form.$update({}, function success(resp) {
@@ -33,9 +33,15 @@
 			});
 		};
 		
-        //self.loadForm();
-
+		self.clearTable = function() {
+			// обнуляем список
+			self.facilityList = [];
+			// прячем таблицу
+	        self.showFacilities = false;
+		};
+		
 		self.clearForm = function() {
+	        self.clearTable();
 			// загружаем пустую форму
 			self.loadForm();
             // прячем таблицу
@@ -44,8 +50,9 @@
     		$scope.$broadcast('clearForm', {});
 		};
 
+		// init
         self.clearForm();
-
+        
         function showNotification (message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -62,7 +69,7 @@
               templateUrl: '/dpd/app/templates/whiledialog.tmpl.html',
               parent: angular.element(document.body),
               clickOutsideToClose: false,
-              fullscreen: false
+              fullscreen: true
             });
         };
         
