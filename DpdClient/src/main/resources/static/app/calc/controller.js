@@ -4,14 +4,12 @@
 	angular.module('dpdApp')
 		.controller('CalcCtrl', DpdCalcController);
 
-	function DpdCalcController($log, $mdToast, DpdCalc) {
+	function DpdCalcController($log, $mdToast, $mdDialog, DpdCalc) {
 		var self = this;
 
         self.form = {};
-
         self.facilityList = [];
-
-        self.calculations = false;
+        //self.dataReceived = false;
 
 		DpdCalc.get({id: 0}, function(response) {
 			self.form = response;
@@ -19,17 +17,17 @@
 		});
 
 		self.update = function(form) {
-            self.calculations = true;
+			showNotification("Запрос отравляется!");
+			
+			self.showWhile();
             form.$update({}, function success(resp) {
-                showNotification("Запрос отравлен!");
-
-                self.facilityList = DpdCalc.query({}, function success(data){
-                    self.calculations = false;
-                }, function error(data) {
-                    self.calculations = false;
+                self.facilityList = DpdCalc.query({}, function success() {
+                    $mdDialog.cancel();
+                }, function err(){
+                    $mdDialog.cancel();
                 });
             }, function error(data) {
-                self.calculations = false;
+            	$mdDialog.cancel();
             });
 		};
 
@@ -47,10 +45,23 @@
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
+                    .position("top right")
                     .hideDelay(3000)
             );
-            $log.info('Form updated');
+            //$log.info('Form updated');
         }
+        
+        self.showWhile = function(ev) {
+            $mdDialog.show({
+              controller: DpdCalcController,
+              templateUrl: '/dpd/app/templates/whiledialog.tmpl.html',
+              parent: angular.element(document.body),
+              clickOutsideToClose: false,
+              fullscreen: false
+            });
+        };
+        
+
 	};
 
 }(angular));
