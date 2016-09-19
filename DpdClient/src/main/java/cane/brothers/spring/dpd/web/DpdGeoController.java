@@ -25,21 +25,9 @@ public class DpdGeoController {
     @Autowired
     private DpdGeoService dpdService;
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<City> getAllCities() throws DpdConnectionException {
-//        log.debug("get all cities");
-//        return dpdService.getCities(null);
-//    }
-
     @RequestMapping(method = RequestMethod.GET)
     public List<City> getCities(@RequestParam String query) throws DpdConnectionException {
         log.debug("get cities by query");
         return dpdService.getCities(query);
     }
-
-//    @RequestMapping(value="/{cityName}", method = RequestMethod.GET)
-//    public List<City> getCitiesByName(@RequestParam(value="cityName") String cityName) {
-//        log.debug("get cities by name");
-//        return dpdService.getCities();
-//    }
 }
