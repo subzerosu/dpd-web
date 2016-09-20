@@ -69,7 +69,7 @@
               templateUrl: '/dpd/app/templates/whiledialog.tmpl.html',
               parent: angular.element(document.body),
               clickOutsideToClose: false,
-              fullscreen: true
+              fullscreen: false
             });
         };
         
