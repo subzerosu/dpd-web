@@ -1,5 +1,5 @@
 (function () {
   'use strict';
 
-  angular.module('dpdApp', ['ngMaterial', 'mdDataTable', 'ngResource']);
+  angular.module('dpdApp', ['ngMaterial', 'ngMessages', 'mdDataTable', 'ngResource']);
 })();

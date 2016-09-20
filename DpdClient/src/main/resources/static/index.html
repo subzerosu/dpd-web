@@ -23,27 +23,36 @@
 			</md-toolbar>
 
 			<md-content class="md-padding">
-				<form ng-submit="calcCtrl.update(calcCtrl.form)">
+				<form ng-submit="calcCtrl.update(calcCtrl.form)" name="calcForm">
 					<div layout="row" layout-xs="column">
 						<div flex>
 							<div ng-controller="CityCtrl as cityCtrl" layout="column" ng-cloak>
 								<p ng-model="cityCtrl.destination"
 									ng-init="cityCtrl.destination='pickup'">Пункт отправления</p>
 									
-								<md-autocomplete ng-disabled="cityCtrl.isDisabled"
+								<md-autocomplete flex 
+								    ng-disabled="cityCtrl.isDisabled"
+									md-input-name="autocompleteCity"
+									required=""
+									md-require-match=""
+									md-floating-label="город отправления"
 									md-no-cache="cityCtrl.noCache"
 									md-search-text-change="cityCtrl.searchTextChange(cityCtrl.searchText)"
 									md-search-text="cityCtrl.searchText"
 									md-selected-item-change="cityCtrl.selectedItemChange(item, calcCtrl.form.cityPickupId)"
 									md-selected-item="cityCtrl.searchItem"
 									md-items="item in cityCtrl.querySearch(cityCtrl.searchText)"
-									md-item-text="item.cityName" md-min-length="2"
-									placeholder="Выберите город отправления"> 
+									md-item-text="item.cityName" 
+									md-min-length="2"> 
 									<md-item-template>
 										<span md-highlight-text="cityCtrl.searchText"
 											md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span> 
 									</md-item-template> 
 									<md-not-found>Город "{{cityCtrl.searchText}}" не найден.</md-not-found>
+									<div ng-messages="calcForm.autocompleteCity.$error" ng-if="calcForm.autocompleteCity.$touched">
+							            <div ng-message="required"><b>Необходимо</b> выбрать город</div>
+							            <div ng-message="md-require-match">Выберите существующий город из списка</div>
+							        </div>
 								</md-autocomplete>
 							</div>
 	
@@ -54,25 +63,38 @@
 								</md-radio-group>
 							</div>
 						</div>
+						
+						<div class="md-padding"></div>
 	
 						<div flex>
 							<div ng-controller="CityCtrl as city2Ctrl" layout="column" ng-cloak>
 								<p ng-model="city2Ctrl.destination"
 									ng-init="city2Ctrl.destination='delivery'">Пункт назначения</p>
-								<md-autocomplete ng-disabled="city2Ctrl.isDisabled"
+									
+								<md-autocomplete flex
+									ng-disabled="city2Ctrl.isDisabled"
+									md-input-name="autocompleteCity2"
+									required=""
+									md-require-match=""
+									md-floating-label="город назначения"
 									md-no-cache="city2Ctrl.noCache"
 									md-search-text-change="city2Ctrl.searchTextChange(city2Ctrl.searchText)"
 									md-search-text="city2Ctrl.searchText"
 									md-selected-item-change="city2Ctrl.selectedItemChange(item, calcCtrl.form.cityDeliveryId)"
 									md-selected-item="city2Ctrl.searchItem"
 									md-items="item in city2Ctrl.querySearch(city2Ctrl.searchText)"
-									md-item-text="item.cityName" md-min-length="2"
-									placeholder="Выберите город назначения"> <md-item-template>
-									<span md-highlight-text="city2Ctrl.searchText"
-											md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span> 
-									</span>
+									md-item-text="item.cityName" 
+									md-min-length="2"> 
+									<md-item-template>
+										<span md-highlight-text="city2Ctrl.searchText"
+												md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span> 
+										</span>
 									</md-item-template> 
 									<md-not-found>Город "{{city2Ctrl.searchText}}" не найден.</md-not-found> 
+									<div ng-messages="calcForm.autocompleteCity2.$error" ng-if="calcForm.autocompleteCity2.$touched">
+							            <div ng-message="required"><b>Необходимо</b> выбрать город</div>
+							            <div ng-message="md-require-match">Выберите существующий город из списка</div>
+							        </div>
 								</md-autocomplete>
 							</div>
 	
@@ -88,35 +110,49 @@
 					<div layout="row" layout-align="space-around end">
 						<md-input-container flex> 
 							<label>Длина<span>, см</span></label> 
-							<input type="text" id="length" ng-model="calcCtrl.form.length" />
+							<input type="text" name="length" required="" ng-model="calcCtrl.form.length" />
+							<div ng-messages="calcForm.length.$error">
+					            <div ng-message="required">Без длины ни как</div>
+					        </div>
 						</md-input-container>
 	
 						<md-input-container flex> 
 							<label>Ширина<span>, см</span></label> 
-							<input type="text" id="width" ng-model="calcCtrl.form.width" />
+							<input type="text" name="width" required="" ng-model="calcCtrl.form.width" />
+							<div ng-messages="calcForm.width.$error">
+					            <div ng-message="required">Ширина должна быть</div>
+					        </div>
 						</md-input-container>
 	
 						<md-input-container flex> 
 							<label>Высота<span>, см</span></label> 
-							<input type="text" id="height" ng-model="calcCtrl.form.height" />
+							<input type="text" name="height" required=""ng-model="calcCtrl.form.height" />
+							<div ng-messages="calcForm.height.$error">
+					            <div ng-message="required">Высоту не набрали</div>
+					        </div>
 						</md-input-container>
 					</div>
 	
 					<div layout="row" layout-align="space-around start">
 						<md-input-container flex> 
 							<label>Вес<span>, кг</span></label> 
-							<input type="text" id="weight" ng-model="calcCtrl.form.weight" />
+							<input type="text" name="weight" required="" ng-model="calcCtrl.form.weight" />
+							<div ng-messages="calcForm.weight.$error">
+					            <div ng-message="required">Забыли про вес</div>
+					        </div>
 						</md-input-container>
 	
 						<md-input-container flex> 
 							<label>Количество<span>, шт</span></label> 
-							<input type="text" id="quantity" ng-model="calcCtrl.form.quantity" />
+							<input type="text" name="quantity" required="" ng-model="calcCtrl.form.quantity" />
+							<div ng-messages="calcForm.quantity.$error">
+					            <div ng-message="required">Сколько надо?</div>
+					        </div>
 						</md-input-container>
 					</div>
 	
 					<div layout="row" layout-align="space-between">
-						<md-button class="md-raised md-warn"
-								ng-click="calcCtrl.update(calcCtrl.form)">Рассчитать</md-button>
+						<md-button type="submit" class="md-raised md-warn">Рассчитать</md-button>
 						<md-button class="md-raised" ng-click="calcCtrl.clearForm()">Очистить</md-button>
 					</div>
 	
