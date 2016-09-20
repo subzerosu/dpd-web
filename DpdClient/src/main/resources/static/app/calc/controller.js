@@ -14,16 +14,18 @@
 			self.facilityList = [];
 			self.showFacilities = false;
 			
-			self.showWhile();
-            form.$update({}, function success(resp) {
-                self.facilityList = DpdCalc.query({}, function success() {
-                	self.closeWhile();
-                }, function err(){
-                	self.closeWhile();
-                });
-            }, function error(data) {
-            	self.closeWhile();
-            });
+			if(isCitiesSelected(form)) {			
+				self.showWhile();
+	            form.$update({}, function success(resp) {
+	                self.facilityList = DpdCalc.query({}, function success() {
+	                	self.closeWhile(true);
+	                }, function err(){
+	                	self.closeWhile(false);
+	                });
+	            }, function error(data) {
+	            	self.closeWhile(false);
+	            });
+			}
 		};
 		
 		self.loadForm = function() {
@@ -53,6 +55,21 @@
 		// init
         self.clearForm();
         
+        function isCitiesSelected(form) {
+        	if(!form.cityPickupId) {
+				showNotification("Не выбран пункт отправления");
+				return false;
+			}
+			
+			if(!form.cityDeliveryId) {
+				showNotification("Не выбран пункт назначения");
+				return false;
+			}
+			
+            return true;
+            //$log.info('Form updated');
+        }
+        
         function showNotification (message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -73,9 +90,9 @@
             });
         };
         
-        self.closeWhile = function() {
+        self.closeWhile = function(showTable) {
         	$mdDialog.cancel();
-        	self.showFacilities = true;
+        	self.showFacilities = showTable;
             $log.info('show facilities table');
         };
 	};
