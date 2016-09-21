@@ -5,17 +5,14 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cane.brothers.spring.dpd.web.DpdCalcVo;
 import cane.brothers.spring.dpd.web.DpdFacilityVo;
-//import org.modelmapper.ModelMapper;
-//import org.modelmapper.PropertyMap;
 import ru.dpd.ws.calculator._2012_03_20.Auth;
 import ru.dpd.ws.calculator._2012_03_20.CityRequest;
 import ru.dpd.ws.calculator._2012_03_20.DPDCalculator;
-import ru.dpd.ws.calculator._2012_03_20.DPDCalculatorService;
 import ru.dpd.ws.calculator._2012_03_20.ParcelRequest;
 import ru.dpd.ws.calculator._2012_03_20.ServiceCost;
 import ru.dpd.ws.calculator._2012_03_20.ServiceCostFault2_Exception;
@@ -29,12 +26,12 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 
 	private static final Logger log = LoggerFactory.getLogger(DpdCalcServiceImpl.class);
 
-	@Value("${dpd.auth.clientkey}")
-	private String clientKey;
+	@Autowired
+	private DPDCalculator calc;
 
-	@Value("${dpd.auth.clientnumber}")
-	private Long clientNumber;
-
+	@Autowired
+	private Auth calcAuth;
+	
 	private List<DpdFacilityVo> facilityList = new ArrayList<>();
 
 	@Override
@@ -44,15 +41,10 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 		}
 		facilityList.clear();
 
-		DPDCalculatorService service = new DPDCalculatorService();
-		DPDCalculator calc = service.getDPDCalculatorPort();
-
-		Auth auth = getAuth();
-
 		CityRequest pickup = getPickupCity(form);
 		CityRequest delivery = getDeliveryCity(form);
 
-		ServiceCostParcelsRequest request = createCostRequest(auth, form, pickup, delivery);
+		ServiceCostParcelsRequest request = createCostRequest(calcAuth, form, pickup, delivery);
 		addParcels(request, form);
 
 		try {
@@ -79,13 +71,6 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 	@Override
 	public List<DpdFacilityVo> getFacilities() {
 		return facilityList;
-	}
-
-	private Auth getAuth() {
-		Auth auth = new Auth();
-		auth.setClientKey(clientKey);
-		auth.setClientNumber(clientNumber);
-		return auth;
 	}
 
 	// город отправления
