@@ -4,7 +4,7 @@
 	angular.module('dpdApp')
 		.controller('CalcCtrl', DpdCalcController);
 
-	function DpdCalcController($scope, $log, $mdToast, $mdDialog, DpdCalc) {
+	function DpdCalcController($scope, $log, $mdToast, $mdDialog, $location, $anchorScroll, DpdCalc) {
 		var self = this;
 
         self.form = {};       
@@ -19,6 +19,7 @@
 	            	$log.info(resp.$status + ": " + resp.$statusText);
 		            self.facilityList = DpdCalc.query({}, function success() {
 		                self.closeWhile(true);
+		                goTo('table');
 		            }, function err(){
 		                self.closeWhile(false);
 		            });
@@ -93,6 +94,16 @@
         	$mdDialog.cancel();
         	self.showFacilities = showTable;
             $log.info('show facilities table');
+        };
+        
+
+        function goTo(loc) {
+            // set the location.hash to the id of
+            // the element you wish to scroll to.
+            $location.hash(loc);
+
+            // call $anchorScroll()
+            $anchorScroll();
         };
 	};
 
