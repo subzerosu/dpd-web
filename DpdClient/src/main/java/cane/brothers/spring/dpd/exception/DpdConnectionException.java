@@ -5,7 +5,9 @@ package cane.brothers.spring.dpd.exception;
  */
 public class DpdConnectionException extends Exception {
 
-    public DpdConnectionException(String message) {
+	private static final long serialVersionUID = 4516253435978900032L;
+
+	public DpdConnectionException(String message) {
         super(message);
     }
 }
