@@ -2,15 +2,19 @@ package cane.brothers.spring.dpd.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cane.brothers.spring.dpd.exception.DpdCalculationException;
 import cane.brothers.spring.dpd.service.DpdCalcService;
 
 /**
@@ -22,24 +26,28 @@ public class DpdCalcFormController {
 
 	private static final Logger log = LoggerFactory.getLogger(DpdCalcFormController.class);
 
-    @Autowired
-    private DpdCalcService dpdService;
+	@Autowired
+	private DpdCalcService dpdService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public DpdCalcVo getCalcForm(@PathVariable String id) {
-        log.info("get new calc form");
-        return new DpdCalcVo();
-    }
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public DpdCalcVo getCalcForm(@PathVariable String id) {
+		log.info("get new calc form");
+		return new DpdCalcVo();
+	}
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public DpdCalcVo workCalcForm(@RequestBody DpdCalcVo form) {
-        log.info("calc form: " + form);
-        return dpdService.calculateFacilities(form) ? form : null;
-    }
+	@RequestMapping(method = RequestMethod.PUT)
+	public DpdCalcVo workCalcForm(@RequestBody @Valid DpdCalcVo form, BindingResult result) throws DpdCalculationException {
+		log.info("calc form: " + form);
+		if (result.hasErrors()) {
+			throw new DpdCalculationException("field cannot be null");
+		}
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<DpdFacilityVo> getFacilities() {
-        log.info("get list of calculated facilities");
-        return dpdService.getFacilities();
-    }
+		return dpdService.calculateFacilities(form);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public List<DpdFacilityVo> getFacilities() {
+		log.info("get list of calculated facilities");
+		return dpdService.getFacilities();
+	}
 }

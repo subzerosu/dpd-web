@@ -38,7 +38,7 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 	private List<DpdFacilityVo> facilityList = new ArrayList<>();
 
 	@Override
-	public boolean calculateFacilities(DpdCalcVo form) {
+	public DpdCalcVo calculateFacilities(DpdCalcVo form) {
 		if (form == null) {
 			new IllegalArgumentException("form object cann't be null");
 		}
@@ -73,7 +73,7 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 		}
 
 		//
-		return (facilityList.size() > 0 ? true : false);
+		return (facilityList.size() > 0 ? form : null);
 	}
 
 	@Override

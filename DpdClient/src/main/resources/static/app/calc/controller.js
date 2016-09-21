@@ -17,11 +17,19 @@
 			if(isCitiesSelected(form)) {			
 				self.showWhile();
 	            form.$update({}, function success(resp) {
-	                self.facilityList = DpdCalc.query({}, function success() {
-	                	self.closeWhile(true);
-	                }, function err(){
-	                	self.closeWhile(false);
-	                });
+	            	$log.info(resp.$status + ": " + resp.$statusText);
+	            	
+	            	if(resp.$status == 200) {
+		                self.facilityList = DpdCalc.query({}, function success() {
+		                	self.closeWhile(true);
+		                }, function err(){
+		                	self.closeWhile(false);
+		                });
+	            	}
+	            	else {
+	            		self.closeWhile(false);
+	            		showNotification(resp.$statusText);
+	            	}
 	            }, function error(data) {
 	            	self.closeWhile(false);
 	            });
@@ -56,15 +64,15 @@
         self.clearForm();
         
         function isCitiesSelected(form) {
-        	if(!form.cityPickupId) {
-				showNotification("Не выбран пункт отправления");
-				return false;
-			}
-			
-			if(!form.cityDeliveryId) {
-				showNotification("Не выбран пункт назначения");
-				return false;
-			}
+//        	if(!form.cityPickupId) {
+//				showNotification("Не выбран пункт отправления");
+//				return false;
+//			}
+//			
+//			if(!form.cityDeliveryId) {
+//				showNotification("Не выбран пункт назначения");
+//				return false;
+//			}
 			
             return true;
             //$log.info('Form updated');

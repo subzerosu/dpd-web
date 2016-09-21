@@ -5,7 +5,15 @@
 	var DpdCalcFactory = function($resource) {
 		return $resource('/dpd/rest/calc/:id', {id: '@id'}, {
 			update : {
-				method : 'PUT'
+				method : 'PUT',
+				interceptor: {
+			        response: function(response) {      
+			            var result = response.resource;        
+			            result.$status = response.status;
+			            result.$statusText = response.statusText;
+			            return result;
+			        }
+			    }
 			}
 		});
 	};

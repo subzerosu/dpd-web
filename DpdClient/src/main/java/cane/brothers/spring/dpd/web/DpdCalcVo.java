@@ -1,24 +1,38 @@
 package cane.brothers.spring.dpd.web;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by cane on 11.09.16.
  */
 public final class DpdCalcVo {
 
+	@NotNull
     private Long cityPickupId;
     private Boolean cityPickupType = false;
+    
+    @NotNull
     private Long cityDeliveryId;
     private Boolean cityDeliveryType = false;
 
     /** Вес, кг */
+    @NotNull
     private Double weight;
+    
     /** Длина, см */
+    @NotNull
     private Double length;
+    
     /** Ширина, см */
+    @NotNull
     private Double width;
+    
     /** Высота, см */
+    @NotNull
     private Double height;
+    
     /** Количество, шт */
+    @NotNull
     private Integer quantity = 1;
 
 

@@ -10,7 +10,7 @@ import cane.brothers.spring.dpd.web.DpdFacilityVo;
  */
 public interface DpdCalcService {
 
-    boolean calculateFacilities(DpdCalcVo form);
+	DpdCalcVo calculateFacilities(DpdCalcVo form);
 
     List<DpdFacilityVo> getFacilities();
 }
