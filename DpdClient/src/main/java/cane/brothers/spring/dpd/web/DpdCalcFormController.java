@@ -36,13 +36,16 @@ public class DpdCalcFormController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public DpdCalcVo workCalcForm(@RequestBody @Valid DpdCalcVo form, BindingResult result) throws DpdCalculationException {
+	public DpdCalcVo workCalcForm(@RequestBody @Valid DpdCalcVo form, BindingResult result) {
 		log.info("calc form: " + form);
-		if (result.hasErrors()) {
-			throw new DpdCalculationException("field cannot be null");
-		}
-
+		validateForm(result);
 		return dpdService.calculateFacilities(form);
+	}
+
+	private void validateForm(BindingResult result) {
+		if (result.hasErrors()) {
+			throw new DpdCalculationException("fields may not be null", result);
+		}
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

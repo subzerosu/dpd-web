@@ -10,7 +10,6 @@
         self.form = {};       
 
 		self.update = function(form) {
-			//showNotification("Запрос отравляется!");
 			self.facilityList = [];
 			self.showFacilities = false;
 			
@@ -18,20 +17,14 @@
 				self.showWhile();
 	            form.$update({}, function success(resp) {
 	            	$log.info(resp.$status + ": " + resp.$statusText);
-	            	
-	            	if(resp.$status == 200) {
-		                self.facilityList = DpdCalc.query({}, function success() {
-		                	self.closeWhile(true);
-		                }, function err(){
-		                	self.closeWhile(false);
-		                });
-	            	}
-	            	else {
-	            		self.closeWhile(false);
-	            		showNotification(resp.$statusText);
-	            	}
-	            }, function error(data) {
+		            self.facilityList = DpdCalc.query({}, function success() {
+		                self.closeWhile(true);
+		            }, function err(){
+		                self.closeWhile(false);
+		            });
+	            }, function error(resp) {
 	            	self.closeWhile(false);
+	            	showNotification(resp.data.code + ": " + resp.data.message);
 	            });
 			}
 		};
@@ -64,18 +57,17 @@
         self.clearForm();
         
         function isCitiesSelected(form) {
-//        	if(!form.cityPickupId) {
-//				showNotification("Не выбран пункт отправления");
-//				return false;
-//			}
-//			
-//			if(!form.cityDeliveryId) {
-//				showNotification("Не выбран пункт назначения");
-//				return false;
-//			}
+        	if(!form.cityPickupId) {
+				showNotification("Не выбран пункт отправления");
+				return false;
+			}
+			
+			if(!form.cityDeliveryId) {
+				showNotification("Не выбран пункт назначения");
+				return false;
+			}
 			
             return true;
-            //$log.info('Form updated');
         }
         
         function showNotification (message) {
@@ -85,7 +77,6 @@
                     .position("top right")
                     .hideDelay(3000)
             );
-            //$log.info('Form updated');
         }
         
         self.showWhile = function() {
