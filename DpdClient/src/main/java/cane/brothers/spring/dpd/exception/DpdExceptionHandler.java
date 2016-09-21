@@ -42,4 +42,13 @@ public class DpdExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(e, error, headers, HttpStatus.UNPROCESSABLE_ENTITY, request);
     }
+	
+	@ExceptionHandler({ DpdConnectionException.class })
+    protected ResponseEntity<Object> handleConnection(Exception e, WebRequest request) {
+        ErrorResource error = new ErrorResource("NoConnection", e.getMessage());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return handleExceptionInternal(e, error, headers, HttpStatus.BAD_GATEWAY, request);
+    }	
 }

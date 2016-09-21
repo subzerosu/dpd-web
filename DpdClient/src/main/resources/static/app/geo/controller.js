@@ -4,8 +4,7 @@
 	angular.module('dpdApp')
 		.controller('CityCtrl', CityController);
 
-	// var DpdGeoController = function($scope, DpdGeo) {
-	function CityController ($timeout, $q, $log, $scope, DpdGeo) {
+	function CityController ($timeout, $q, $log, $mdToast, $scope, DpdGeo) {
 		var self = this;
 
 		self.simulateQuery = false;
@@ -32,6 +31,7 @@
 		function querySearch (query) {
 			var results = query ? self.cities.filter( createFilterFor(query) ) : self.cities,
 				deferred;
+			// TODO
 			if (self.simulateQuery) {
 				deferred = $q.defer();
 				$timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
@@ -60,14 +60,11 @@
 		 * Build `cities` list of key/value pairs
 		 */
 		function loadAll() {
-			// $http.get('app/cities.json').then(function(res){
-			// 	self.cities = res.data;
-			// });
 			self.cities = DpdGeo.query({query:""},
-				function success(res) {
-					// todo
+				function success(resp) {
+					$log.info(resp.$status + ": " + resp.$statusText);
 			},  function err(res) {
-
+				showNotification(resp.data.code + ": " + resp.data.message);
 			});
 		}
 
@@ -94,6 +91,15 @@
         $scope.$on('clearForm', function(event, args) {
         	self.clear();
         });
+        
+        function showNotification (message) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position("top right")
+                    .hideDelay(3000)
+            );
+        }
 	};
 
 })(angular);
