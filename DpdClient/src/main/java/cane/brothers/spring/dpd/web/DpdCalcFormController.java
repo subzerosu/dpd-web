@@ -1,12 +1,17 @@
 package cane.brothers.spring.dpd.web;
 
-import cane.brothers.spring.dpd.service.DpdCalcService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import cane.brothers.spring.dpd.service.DpdCalcService;
 
 /**
  * Created by cane on 11.09.16.
@@ -27,9 +32,9 @@ public class DpdCalcFormController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Boolean workCalcForm(@RequestBody DpdCalcVo form) {
+    public DpdCalcVo workCalcForm(@RequestBody DpdCalcVo form) {
         log.info("calc form: " + form);
-        return dpdService.calculateFacilities(form);
+        return dpdService.calculateFacilities(form) ? form : null;
     }
 
     @RequestMapping(method = RequestMethod.GET)

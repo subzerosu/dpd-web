@@ -3,18 +3,13 @@ package cane.brothers.spring.dpd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Component;
 
 import cane.brothers.spring.dpd.exception.DpdConnectionException;
 import cane.brothers.spring.dpd.service.DpdGeoService;
 
-// ApplicationStartedEvent
-// ContextStartedEvent
-// ContextRefreshedEvent
 @Component
 public class DpdStartupListener implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -30,7 +25,7 @@ public class DpdStartupListener implements ApplicationListener<ContextRefreshedE
 
 	private void preloadCities() {
 		try {
-			logger.info("preload cities");
+			logger.info("предзагрузка городов...");
 			cityService.getCities(null);
 		} catch (DpdConnectionException ex) {
 			logger.error(ex.getMessage());
