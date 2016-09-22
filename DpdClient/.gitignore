@@ -23,3 +23,6 @@ build/*
 
 # spring
 .springBeans
+
+# assets
+src/main/resources/static/assets/*
