@@ -1,16 +1,18 @@
 package cane.brothers.spring.dpd.service;
 
-import cane.brothers.spring.dpd.config.DpdGeoConfiguration;
-import cane.brothers.spring.dpd.exception.DpdConnectionException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.dpd.ws.geography._2012_04_17.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import cane.brothers.spring.dpd.exception.DpdConnectionException;
+import ru.dpd.ws.geography._2012_04_17.Auth;
+import ru.dpd.ws.geography._2012_04_17.City;
+import ru.dpd.ws.geography._2012_04_17.DPDGeography;
+import ru.dpd.ws.geography._2012_04_17.WSFault_Exception;
 
 /**
  * Created by cane on 12.09.16.

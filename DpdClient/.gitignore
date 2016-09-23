@@ -26,3 +26,4 @@ build/*
 
 # assets
 src/main/resources/static/assets/*
+/.apt_generated/

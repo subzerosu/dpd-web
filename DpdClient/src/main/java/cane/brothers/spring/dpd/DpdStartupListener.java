@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import cane.brothers.spring.api.ICanProxy;
 import cane.brothers.spring.dpd.exception.DpdConnectionException;
 import cane.brothers.spring.dpd.service.DpdGeoService;
 
@@ -15,19 +14,12 @@ import cane.brothers.spring.dpd.service.DpdGeoService;
 public class DpdStartupListener implements ApplicationListener<ContextRefreshedEvent> {
 
 	private static final Logger logger = LoggerFactory.getLogger(DpdStartupListener.class);
-
-	@Autowired(required = false)
-	private ICanProxy systemProxy;
 	
 	@Autowired
 	private DpdGeoService cityService;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		if(systemProxy != null) {
-			systemProxy.configure();
-		}
-		
 		preloadCities();
 	}
 
