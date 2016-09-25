@@ -5,6 +5,7 @@ import javax.xml.ws.WebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +15,7 @@ import ru.dpd.ws.calculator._2012_03_20.DPDCalculatorService;
 
 
 @Configuration
+@EnableConfigurationProperties(DpdAuthProperties.class)
 public class DpdCalcConfiguration {
 
 	private static final Logger log = LoggerFactory.getLogger(DpdCalcConfiguration.class);

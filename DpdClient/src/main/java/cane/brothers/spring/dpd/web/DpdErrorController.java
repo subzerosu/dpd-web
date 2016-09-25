@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by cane on 12.09.16.
  */
-@RestController
+//@RestController
 public class DpdErrorController implements ErrorController {
 
     private static final String PATH = "/error";
@@ -23,7 +23,7 @@ public class DpdErrorController implements ErrorController {
 //    }
     @RequestMapping(value = PATH)
     void handleFoo(HttpServletResponse response) throws IOException {
-      response.sendRedirect("/");
+      response.sendRedirect("/error");
     }
 
 

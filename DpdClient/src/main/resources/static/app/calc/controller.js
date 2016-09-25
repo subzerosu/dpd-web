@@ -7,16 +7,27 @@
 	function DpdCalcController($scope, $log, $mdToast, $mdDialog, $location, $anchorScroll, DpdCalc) {
 		var self = this;
 
-        self.form = {};       
+        self.form = {};
+        
+        self.calculation = {
+        	result : function(facility) {
+        		return self.cityPickupName + " - " + self.cityDeliveryName + "\n" 
+        			+ facility.facilityName + "\n " 
+        			+ facility.cost + " руб. за " + facility.delivery + "";
+        	}
+        };
+        
+        self.cityPickupName = {};
+        self.cityDeliveryName = {};
 
 		self.update = function(form) {
-			self.facilityList = [];
 			self.showFacilities = false;
 			
 			if(isCitiesSelected(form)) {			
 				self.showWhile();
 	            form.$update({}, function success(resp) {
 	            	$log.info(resp.$status + ": " + resp.$statusText);
+	    			self.facilityList.splice(0, self.facilityList.length);
 		            self.facilityList = DpdCalc.query({}, function success() {
 		                self.closeWhile(true);
 		                goTo('table');
@@ -104,6 +115,17 @@
 
             // call $anchorScroll()
             $anchorScroll();
+        };
+        
+        self.toClipboard = function(e){
+            console.info('text in clipboard:', e.text);
+            e.clearSelection();
+        	
+            $mdToast.show(
+                $mdToast.simple()
+                    .content('скопировали: '+e.text)
+                    .hideDelay(3000)
+            );
         };
 	};
 

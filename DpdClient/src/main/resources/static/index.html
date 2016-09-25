@@ -167,12 +167,22 @@
 			</div>
 			</md-toolbar>
 			<mdt-table sortable-columns="true"> 
-				<mdt-header-row> 
+				<mdt-header-row>
+					<mdt-column align-rule="center">Скопировать</mdt-column> 
 					<mdt-column align-rule="left">Название услуги</mdt-column> 
 					<mdt-column align-rule="right">Стоимость доставки, руб</mdt-column> 
 					<mdt-column align-rule="right">Срок доставки, раб. дни</mdt-column>
 				</mdt-header-row> 
-				<mdt-row ng-repeat="facility in calcCtrl.facilityList"> 
+				<mdt-row ng-repeat="facility in calcCtrl.facilityList">
+					<mdt-cell html-content="true">
+						<md-button class="md-icon-button launch" 
+							title="скопировать в буфер обмена" aria-label="clipboard"
+							ngclipboard 
+							data-clipboard-text="{{calcCtrl.calculation.result(facility)}}" 
+							ngclipboard-success="calcCtrl.toClipboard(e);" />
+							<md-icon md-svg-icon="launch"></md-icon> 
+						</md-button> 
+					</mdt-cell> 
 					<mdt-cell>{{facility.facilityName}}</mdt-cell>
 					<mdt-cell>{{facility.cost}}</mdt-cell>
 					<mdt-cell>{{facility.delivery}}</mdt-cell>
@@ -203,6 +213,10 @@
 		<script type="text/javascript" src="./assets/md-data-table/dist/md-data-table-templates.js"></script>
 		<script type="text/javascript" src="./assets/md-data-table/dist/md-data-table.js"></script>
 
+		<!--  Angular clipboar Libraries -->
+		<script type="text/javascript" src="./assets/clipboard/dist/clipboard.min.js"></script>
+		<script type="text/javascript" src="./assets/ngclipboard/dist/ngclipboard.min.js"></script>
+		
 		<script type="text/javascript" charset="utf-8" src="./app/app.js"></script>
 		<script type="text/javascript" charset="utf-8" src="./app/calc/service.js"></script>
 		<script type="text/javascript" charset="utf-8" src="./app/calc/controller.js"></script>

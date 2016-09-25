@@ -50,8 +50,10 @@
 			if(item) {
 				if (self.destination == 'pickup') {
 					$scope.$parent.calcCtrl.form.cityPickupId = item.cityId;
+					$scope.$parent.calcCtrl.cityPickupName = item.cityName;
 				} else {
 					$scope.$parent.calcCtrl.form.cityDeliveryId = item.cityId;
+					$scope.$parent.calcCtrl.cityDeliveryName = item.cityName;
 				}
 			}
 		}

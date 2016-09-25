@@ -6,7 +6,9 @@
   "description": "bower installer for dpd client",
   "keywords": [
     "angular material",
-    "angular material table"
+    "angular material table",
+    "angualr clipboard",
+    "angular mdi"
   ],
   "private": true,
   "ignore": [
@@ -27,12 +29,13 @@
   "dependencies": {
     "angular-material": "~1.1.1",
     "angular-resource": "~1.5.8",
-    "md-data-table": "~1.6.9"
+    "md-data-table": "~1.6.9",
+    "ngclipboard": "^1.1.1"
   },
-  "install" : {
-     "path" : {
-       "css": "css",
-       "js": "js"
-     }
-   }
+  "install": {
+    "path": {
+      "css": "css",
+      "js": "js"
+    }
+  }
 }

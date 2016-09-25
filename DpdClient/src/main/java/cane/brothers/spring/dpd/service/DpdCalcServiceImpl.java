@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cane.brothers.spring.dpd.exception.DpdCalculationException;
 import cane.brothers.spring.dpd.web.DpdCalcVo;
 import cane.brothers.spring.dpd.web.DpdFacilityVo;
 import ru.dpd.ws.calculator._2012_03_20.Auth;
@@ -62,6 +63,7 @@ public class DpdCalcServiceImpl implements DpdCalcService {
 
 		} catch (ServiceCostFault2_Exception e) {
 			log.error(e.getMessage());
+			throw new DpdCalculationException(e.getMessage(), null);
 		}
 
 		//
