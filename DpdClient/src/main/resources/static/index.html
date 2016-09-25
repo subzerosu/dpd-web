@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Angular Material style sheet -->
-<link rel="stylesheet"
-	href="./assets/angular-material/angular-material.min.css">
-<link rel="stylesheet"
-	href="./assets/md-data-table/dist/md-data-table-style.css">
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet"
+			  href="./assets/angular-material/angular-material.min.css">
+	<link rel="stylesheet"
+			  href="./assets/md-data-table/dist/md-data-table-style.css">
 
-<title>DPD: Расчёт стоимости</title>
+	<title>DPD: Р Р°СЃС‡С‘С‚ СЃС‚РѕРёРјРѕСЃС‚Рё</title>
 </head>
 
-<body ng-app="dpdApp" ng-cloak>
+	<body ng-app="dpdApp" ng-cloak>
 
 	<div layout="column" ng-controller="CalcCtrl as calcCtrl" ng-cloak>
 		<section>
 			<md-toolbar class="md-warn">
-			<div class="md-toolbar-tools">
-				<h2 class="md-flex">Расчет стоимости</h2>
-			</div>
+				<div class="md-toolbar-tools">
+					<h2 class="md-flex">Р Р°СЃС‡РµС‚ СЃС‚РѕРёРјРѕСЃС‚Рё</h2>
+				</div>
 			</md-toolbar>
 
 			<md-content class="md-padding">
@@ -28,161 +29,161 @@
 						<div flex>
 							<div ng-controller="CityCtrl as cityCtrl" layout="column" ng-cloak>
 								<p ng-model="cityCtrl.destination"
-									ng-init="cityCtrl.destination='pickup'">Пункт отправления</p>
-									
-								<md-autocomplete flex 
-								    ng-disabled="cityCtrl.isDisabled"
-									md-input-name="autocompleteCity"
-									required=""
-									md-require-match="true"
-									md-floating-label="город отправления"
-									md-no-cache="cityCtrl.noCache"
-									md-search-text-change="cityCtrl.searchTextChange(cityCtrl.searchText)"
-									md-search-text="cityCtrl.searchText"
-									md-selected-item-change="cityCtrl.selectedItemChange(item, calcCtrl.form.cityPickupId)"
-									md-selected-item="cityCtrl.searchItem"
-									md-items="item in cityCtrl.querySearch(cityCtrl.searchText)"
-									md-item-text="item.cityName" 
-									md-min-length="2"> 
+								   ng-init="cityCtrl.destination='pickup'">РџСѓРЅРєС‚ РѕС‚РїСЂР°РІР»РµРЅРёСЏ</p>
+
+								<md-autocomplete flex
+												 ng-disabled="cityCtrl.isDisabled"
+												 md-input-name="autocompleteCity"
+												 required=""
+												 md-require-match="true"
+												 md-floating-label="РіРѕСЂРѕРґ РѕС‚РїСЂР°РІР»РµРЅРёСЏ"
+												 md-no-cache="cityCtrl.noCache"
+												 md-search-text-change="cityCtrl.searchTextChange(cityCtrl.searchText)"
+												 md-search-text="cityCtrl.searchText"
+												 md-selected-item-change="cityCtrl.selectedItemChange(item, calcCtrl.form.cityPickupId)"
+												 md-selected-item="cityCtrl.searchItem"
+												 md-items="item in cityCtrl.querySearch(cityCtrl.searchText)"
+												 md-item-text="item.cityName"
+												 md-min-length="2">
 									<md-item-template>
-										<span md-highlight-text="cityCtrl.searchText"
-											md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span> 
-									</md-item-template> 
-									<md-not-found>Город "{{cityCtrl.searchText}}" не найден.</md-not-found>
+                                        <span md-highlight-text="cityCtrl.searchText"
+											  md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span>
+									</md-item-template>
+									<md-not-found>Р“РѕСЂРѕРґ "{{cityCtrl.searchText}}" РЅРµ РЅР°Р№РґРµРЅ.</md-not-found>
 									<div ng-messages="calcForm.autocompleteCity.$error" ng-if="calcForm.autocompleteCity.$touched">
-							            <div ng-message="required"><b>Необходимо</b> выбрать город</div>
-							            <div ng-message="md-require-match">Выберите существующий город из списка</div>
-							        </div>
+										<div ng-message="required"><b>РќРµРѕР±С…РѕРґРёРјРѕ</b> РІС‹Р±СЂР°С‚СЊ РіРѕСЂРѕРґ</div>
+										<div ng-message="md-require-match">Р’С‹Р±РµСЂРёС‚Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ РіРѕСЂРѕРґ РёР· СЃРїРёСЃРєР°</div>
+									</div>
 								</md-autocomplete>
 							</div>
-	
+
 							<div layout="row" layout-align="start" class="md-padding">
 								<md-radio-group ng-model="calcCtrl.form.cityPickupType">
-									<md-radio-button id="cityOrigDoorFacility" ng-value="0">от двери</md-radio-button> 
-									<md-radio-button id="cityOrigDepartmentFacility" ng-value="1">от пункта выдачи</md-radio-button> 
+									<md-radio-button id="cityOrigDoorFacility" ng-value="0">РѕС‚ РґРІРµСЂРё</md-radio-button>
+									<md-radio-button id="cityOrigDepartmentFacility" ng-value="1">РѕС‚ РїСѓРЅРєС‚Р° РІС‹РґР°С‡Рё</md-radio-button>
 								</md-radio-group>
 							</div>
 						</div>
-						
+
 						<div class="md-padding"></div>
-	
+
 						<div flex>
 							<div ng-controller="CityCtrl as city2Ctrl" layout="column" ng-cloak>
 								<p ng-model="city2Ctrl.destination"
-									ng-init="city2Ctrl.destination='delivery'">Пункт назначения</p>
-									
+								   ng-init="city2Ctrl.destination='delivery'">РџСѓРЅРєС‚ РЅР°Р·РЅР°С‡РµРЅРёСЏ</p>
+
 								<md-autocomplete flex
-									ng-disabled="city2Ctrl.isDisabled"
-									md-input-name="autocompleteCity2"
-									required=""
-									md-require-match="true"
-									md-floating-label="город назначения"
-									md-no-cache="city2Ctrl.noCache"
-									md-search-text-change="city2Ctrl.searchTextChange(city2Ctrl.searchText)"
-									md-search-text="city2Ctrl.searchText"
-									md-selected-item-change="city2Ctrl.selectedItemChange(item, calcCtrl.form.cityDeliveryId)"
-									md-selected-item="city2Ctrl.searchItem"
-									md-items="item in city2Ctrl.querySearch(city2Ctrl.searchText)"
-									md-item-text="item.cityName" 
-									md-min-length="2"> 
+												 ng-disabled="city2Ctrl.isDisabled"
+												 md-input-name="autocompleteCity2"
+												 required=""
+												 md-require-match="true"
+												 md-floating-label="РіРѕСЂРѕРґ РЅР°Р·РЅР°С‡РµРЅРёСЏ"
+												 md-no-cache="city2Ctrl.noCache"
+												 md-search-text-change="city2Ctrl.searchTextChange(city2Ctrl.searchText)"
+												 md-search-text="city2Ctrl.searchText"
+												 md-selected-item-change="city2Ctrl.selectedItemChange(item, calcCtrl.form.cityDeliveryId)"
+												 md-selected-item="city2Ctrl.searchItem"
+												 md-items="item in city2Ctrl.querySearch(city2Ctrl.searchText)"
+												 md-item-text="item.cityName"
+												 md-min-length="2">
 									<md-item-template>
-										<span md-highlight-text="city2Ctrl.searchText"
-												md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span> 
+                                        <span md-highlight-text="city2Ctrl.searchText"
+											  md-highlight-flags="i"> {{item.abbreviation}}.{{item.cityName}}, ({{item.regionName}})</span>
 										</span>
-									</md-item-template> 
-									<md-not-found>Город "{{city2Ctrl.searchText}}" не найден.</md-not-found> 
+									</md-item-template>
+									<md-not-found>Р“РѕСЂРѕРґ "{{city2Ctrl.searchText}}" РЅРµ РЅР°Р№РґРµРЅ.</md-not-found>
 									<div ng-messages="calcForm.autocompleteCity2.$error" ng-if="calcForm.autocompleteCity2.$touched">
-							            <div ng-message="required"><b>Необходимо</b> выбрать город</div>
-							            <div ng-message="md-require-match">Выберите существующий город из списка</div>
-							        </div>
+										<div ng-message="required"><b>РќРµРѕР±С…РѕРґРёРјРѕ</b> РІС‹Р±СЂР°С‚СЊ РіРѕСЂРѕРґ</div>
+										<div ng-message="md-require-match">Р’С‹Р±РµСЂРёС‚Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ РіРѕСЂРѕРґ РёР· СЃРїРёСЃРєР°</div>
+									</div>
 								</md-autocomplete>
 							</div>
-	
+
 							<div layout="row" layout-align="start" class="md-padding">
 								<md-radio-group ng-model="calcCtrl.form.cityDeliveryType">
-									<md-radio-button id="cityDestDoorFacility" ng-value="0">до двери</md-radio-button> 
-									<md-radio-button id="cityDestDepartmentFacility" ng-value="1">до пункта выдачи</md-radio-button> 
+									<md-radio-button id="cityDestDoorFacility" ng-value="0">РґРѕ РґРІРµСЂРё</md-radio-button>
+									<md-radio-button id="cityDestDepartmentFacility" ng-value="1">РґРѕ РїСѓРЅРєС‚Р° РІС‹РґР°С‡Рё</md-radio-button>
 								</md-radio-group>
 							</div>
 						</div>
 					</div>
-	
+
 					<div layout="row" layout-align="space-around end">
-						<md-input-container flex> 
-							<label>Длина<span>, см</span></label> 
+						<md-input-container flex>
+							<label>Р”Р»РёРЅР°<span>, СЃРј</span></label>
 							<input type="text" name="length" required="" ng-model="calcCtrl.form.length" />
 							<div ng-messages="calcForm.length.$error">
-					            <div ng-message="required">Без длины ни как</div>
-					        </div>
+								<div ng-message="required">Р‘РµР· РґР»РёРЅС‹ РЅРё РєР°Рє</div>
+							</div>
 						</md-input-container>
-	
-						<md-input-container flex> 
-							<label>Ширина<span>, см</span></label> 
+
+						<md-input-container flex>
+							<label>РЁРёСЂРёРЅР°<span>, СЃРј</span></label>
 							<input type="text" name="width" required="" ng-model="calcCtrl.form.width" />
 							<div ng-messages="calcForm.width.$error">
-					            <div ng-message="required">Ширина должна быть</div>
-					        </div>
+								<div ng-message="required">РЁРёСЂРёРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ</div>
+							</div>
 						</md-input-container>
-	
-						<md-input-container flex> 
-							<label>Высота<span>, см</span></label> 
+
+						<md-input-container flex>
+							<label>Р’С‹СЃРѕС‚Р°<span>, СЃРј</span></label>
 							<input type="text" name="height" required=""ng-model="calcCtrl.form.height" />
 							<div ng-messages="calcForm.height.$error">
-					            <div ng-message="required">Высоту не набрали</div>
-					        </div>
+								<div ng-message="required">Р’С‹СЃРѕС‚Сѓ РЅРµ РЅР°Р±СЂР°Р»Рё</div>
+							</div>
 						</md-input-container>
 					</div>
-	
+
 					<div layout="row" layout-align="space-around start">
-						<md-input-container flex> 
-							<label>Вес<span>, кг</span></label> 
+						<md-input-container flex>
+							<label>Р’РµСЃ<span>, РєРі</span></label>
 							<input type="text" name="weight" required="" ng-model="calcCtrl.form.weight" />
 							<div ng-messages="calcForm.weight.$error">
-					            <div ng-message="required">Забыли про вес</div>
-					        </div>
+								<div ng-message="required">Р—Р°Р±С‹Р»Рё РїСЂРѕ РІРµСЃ</div>
+							</div>
 						</md-input-container>
-	
-						<md-input-container flex> 
-							<label>Количество<span>, шт</span></label> 
+
+						<md-input-container flex>
+							<label>РљРѕР»РёС‡РµСЃС‚РІРѕ<span>, С€С‚</span></label>
 							<input type="text" name="quantity" required="" ng-model="calcCtrl.form.quantity" />
 							<div ng-messages="calcForm.quantity.$error">
-					            <div ng-message="required">Сколько надо?</div>
-					        </div>
+								<div ng-message="required">РЎРєРѕР»СЊРєРѕ РЅР°РґРѕ?</div>
+							</div>
 						</md-input-container>
 					</div>
-	
+
 					<div layout="row" layout-align="space-between">
-						<md-button type="submit" class="md-raised md-warn">Рассчитать</md-button>
-						<md-button class="md-raised" ng-click="calcCtrl.clearForm()">Очистить</md-button>
+						<md-button type="submit" class="md-raised md-warn">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ</md-button>
+						<md-button class="md-raised" ng-click="calcCtrl.clearForm()">РћС‡РёСЃС‚РёС‚СЊ</md-button>
 					</div>
-	
+
 				</form>
-			</md-content>				
+			</md-content>
 		</section>
 
 		<section class="md-padding" id="table" ng-show="calcCtrl.showFacilities">
 			<md-toolbar class="md-warn">
-			<div class="md-toolbar-tools">
-				<h2 class="md-flex">Доступные услуги</h2>
-			</div>
+				<div class="md-toolbar-tools">
+					<h2 class="md-flex">Р”РѕСЃС‚СѓРїРЅС‹Рµ СѓСЃР»СѓРіРё</h2>
+				</div>
 			</md-toolbar>
-			<mdt-table sortable-columns="true"> 
+			<mdt-table sortable-columns="true">
 				<mdt-header-row>
-					<mdt-column align-rule="center">Скопировать</mdt-column> 
-					<mdt-column align-rule="left">Название услуги</mdt-column> 
-					<mdt-column align-rule="right">Стоимость доставки, руб</mdt-column> 
-					<mdt-column align-rule="right">Срок доставки, раб. дни</mdt-column>
-				</mdt-header-row> 
+					<mdt-column align-rule="center">РЎРєРѕРїРёСЂРѕРІР°С‚СЊ</mdt-column>
+					<mdt-column align-rule="left">РќР°Р·РІР°РЅРёРµ СѓСЃР»СѓРіРё</mdt-column>
+					<mdt-column align-rule="right">РЎС‚РѕРёРјРѕСЃС‚СЊ РґРѕСЃС‚Р°РІРєРё, СЂСѓР±</mdt-column>
+					<mdt-column align-rule="right">РЎСЂРѕРє РґРѕСЃС‚Р°РІРєРё, СЂР°Р±. РґРЅРё</mdt-column>
+				</mdt-header-row>
 				<mdt-row ng-repeat="facility in calcCtrl.facilityList">
 					<mdt-cell html-content="true">
-						<md-button class="md-icon-button launch" 
-							title="скопировать в буфер обмена" aria-label="clipboard"
-							ngclipboard 
-							data-clipboard-text="{{calcCtrl.calculation.result(facility)}}" 
-							ngclipboard-success="calcCtrl.toClipboard(e);" />
-							<md-icon md-svg-icon="launch"></md-icon> 
-						</md-button> 
-					</mdt-cell> 
+						<md-button class="md-icon-button launch"
+								   title="СЃРєРѕРїРёСЂРѕРІР°С‚СЊ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°" aria-label="clipboard"
+								   ngclipboard
+								   data-clipboard-text="{{calcCtrl.calculation.result(facility)}}"
+								   ngclipboard-success="calcCtrl.toClipboard(e);" />
+						<md-icon md-svg-icon="launch"></md-icon>
+						</md-button>
+					</mdt-cell>
 					<mdt-cell>{{facility.facilityName}}</mdt-cell>
 					<mdt-cell>{{facility.cost}}</mdt-cell>
 					<mdt-cell>{{facility.delivery}}</mdt-cell>
@@ -191,36 +192,36 @@
 		</section>
 	</div>
 
-		<script type="text/javascript" src="./assets/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="./assets/jquery/dist/jquery.min.js"></script>
 
-		<!-- Angular Material requires Angular.js Libraries -->
-		<script type="text/javascript" src="./assets/angular/angular.min.js"></script>
-		<script type="text/javascript" src="./assets/angular-animate/angular-animate.min.js"></script>
-		<script type="text/javascript" src="./assets/angular-aria/angular-aria.min.js"></script>
-		<script type="text/javascript" src="./assets/angular-messages/angular-messages.min.js"></script>
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script type="text/javascript" src="./assets/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./assets/angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="./assets/angular-aria/angular-aria.min.js"></script>
+	<script type="text/javascript" src="./assets/angular-messages/angular-messages.min.js"></script>
 
-		<!-- Angualr resources -->
-		<script type="text/javascript" src="./assets/angular-resource/angular-resource.min.js"></script>
+	<!-- Angualr resources -->
+	<script type="text/javascript" src="./assets/angular-resource/angular-resource.min.js"></script>
 
-		<!-- Angular Material Library -->
-		<script type="text/javascript" src="./assets/angular-material/angular-material.min.js"></script>
+	<!-- Angular Material Library -->
+	<script type="text/javascript" src="./assets/angular-material/angular-material.min.js"></script>
 
-		<!-- Angular Material data table Libraries -->
-		<script type="text/javascript" src="./assets/lodash/lodash.min.js"></script>
-		<script type="text/javascript" src="./assets/angular-material-icons/angular-material-icons.min.js"></script>
-		<script type="text/javascript" src="./assets/angular-sanitize/angular-sanitize.min.js"></script>
+	<!-- Angular Material data table Libraries -->
+	<script type="text/javascript" src="./assets/lodash/lodash.min.js"></script>
+	<script type="text/javascript" src="./assets/angular-material-icons/angular-material-icons.min.js"></script>
+	<script type="text/javascript" src="./assets/angular-sanitize/angular-sanitize.min.js"></script>
 
-		<script type="text/javascript" src="./assets/md-data-table/dist/md-data-table-templates.js"></script>
-		<script type="text/javascript" src="./assets/md-data-table/dist/md-data-table.js"></script>
+	<script type="text/javascript" src="./assets/md-data-table/dist/md-data-table-templates.js"></script>
+	<script type="text/javascript" src="./assets/md-data-table/dist/md-data-table.js"></script>
 
-		<!--  Angular clipboar Libraries -->
-		<script type="text/javascript" src="./assets/clipboard/dist/clipboard.min.js"></script>
-		<script type="text/javascript" src="./assets/ngclipboard/dist/ngclipboard.min.js"></script>
-		
-		<script type="text/javascript" charset="utf-8" src="./app/app.js"></script>
-		<script type="text/javascript" charset="utf-8" src="./app/calc/service.js"></script>
-		<script type="text/javascript" charset="utf-8" src="./app/calc/controller.js"></script>
-		<script type="text/javascript" charset="utf-8" src="./app/geo/service.js"></script>
-		<script type="text/javascript" charset="utf-8" src="./app/geo/controller.js"></script>
-</body>
+	<!--  Angular clipboar Libraries -->
+	<script type="text/javascript" src="./assets/clipboard/dist/clipboard.min.js"></script>
+	<script type="text/javascript" src="./assets/ngclipboard/dist/ngclipboard.min.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="./app/app.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./app/calc/service.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./app/calc/controller.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./app/geo/service.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./app/geo/controller.js"></script>
+	</body>
 </html>
